@@ -4,16 +4,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Main',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {
     path: 'bitcoin/:id',
-    loadChildren: () => import('./pages/folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./pages/main/main.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./pages/folder/folder.module').then( m => m.FolderPageModule)
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'bitcoin-test/:id',
+    loadChildren: () => import('./pages/bitcoin-test/bitcoin-test.module').then( m => m.BitcoinTestPageModule)
   }
 ];
 

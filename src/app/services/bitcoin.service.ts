@@ -12,7 +12,7 @@ export class BitcoinService {
     private aff: AngularFireFunctions
   ) { }
 
-  getGeneratedKeys(): Observable<BitcoinKeys> {
-    return this.aff.httpsCallable('generateBitcoinKeys')({});
+  getGeneratedKeys(userPassword: string): Observable<BitcoinKeys> {
+    return this.aff.httpsCallable('generateBitcoinKeys')({ userPassword });
   }
 }
