@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "cryptoDemo",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
