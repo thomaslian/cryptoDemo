@@ -8,5 +8,5 @@
     <ion-input type="password" required="true" [(ngModel)]="password"></ion-input>
   </ion-item>
   <ion-button expand="block" (click)="register()">Register</ion-button>
-  <p>Error: {{error}}</p>
+  <p *ngIf=(error)>Error: {{error}}</p>
 </div>

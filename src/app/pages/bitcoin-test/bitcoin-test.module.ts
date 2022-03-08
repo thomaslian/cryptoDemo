@@ -8,6 +8,7 @@ import { BitcoinTestPageRoutingModule } from './bitcoin-test-routing.module';
 
 import { BitcoinTestPage } from './bitcoin-test.page';
 import { RegisterComponent } from 'src/app/components/register/register.component';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { RegisterComponent } from 'src/app/components/register/register.componen
     IonicModule,
     BitcoinTestPageRoutingModule
   ],
-  declarations: [BitcoinTestPage, RegisterComponent]
+  declarations: [BitcoinTestPage, RegisterComponent, LoadingComponent]
 })
 export class BitcoinTestPageModule {}

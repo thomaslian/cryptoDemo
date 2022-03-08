@@ -8,16 +8,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'bitcoin/:id',
-    loadChildren: () => import('./pages/main/main.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'main',
     loadChildren: () => import('./pages/main/main.module').then( m => m.FolderPageModule)
   },
   {
     path: 'bitcoin-test/:id',
     loadChildren: () => import('./pages/bitcoin-test/bitcoin-test.module').then( m => m.BitcoinTestPageModule)
+  },
+  {
+    path: 'completed',
+    loadChildren: () => import('./pages/completed/completed.module').then( m => m.CompletedPageModule)
   }
 ];
 
