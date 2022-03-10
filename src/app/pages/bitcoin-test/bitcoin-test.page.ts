@@ -12,7 +12,9 @@ import { BitcoinService } from 'src/app/services/bitcoin.service';
 })
 export class BitcoinTestPage implements OnInit {
 
-  testPage: string;
+  bitcoinKeys: BitcoinKeys;
+  privateKey: string;
+  testPage: number;
   loading: boolean = false;
   registrationError: string;
   subscription: Subscription;
@@ -25,15 +27,15 @@ export class BitcoinTestPage implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.testPage = this.activatedRoute.snapshot.paramMap.get('id');
+    this.testPage = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     console.log(this.testPage);
-  }
+   }
 
   /**
-  * Unsubscribe from all subscriptions on destroy
+  * Unsubscribe from all subscriptions on destroy and reset variables
   */
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.resetPage();
   }
 
   /**
@@ -47,15 +49,36 @@ export class BitcoinTestPage implements OnInit {
     this.auth.createUserWithEmailAndPassword(userData.email, userData.password).then(() => {
       console.log("User registered successfully!");
       this.subscription = this.bitcoin.getGeneratedKeys(userData.password).subscribe((keys: BitcoinKeys) => {
-        console.log(keys);
-        console.log('Bitcoin wallet created! - Redirecting user to completed page');
-        this.router.navigate(['/completed']);
-        this.loading = false;
+        this.bitcoinKeys = keys;
+        if (this.testPage === 1) {
+          console.log('Bitcoin wallet created! - Redirecting user to completed page');
+          this.navigateTo('/completed');
+        } else {
+          this.privateKey = this.bitcoin.decrypt(this.bitcoinKeys.privateKey, userData.password);
+          console.log(this.privateKey);
+          console.log("Private key decrypted successfully!");
+          this.loading = false;
+        }
       });
     }).catch(error => {
       console.log(error);
       this.loading = false;
       this.registrationError = error;
     });
+  }
+
+  // Navigate to a page - This will reset variables and unsubscribe from all subscriptions
+  navigateTo(page: string): void {
+    this.router.navigateByUrl(page);
+    this.resetPage();
+  }
+
+  // Reset variables and unsubscribe from all subscriptions
+  private resetPage(): void {
+    if (this.subscription) this.subscription.unsubscribe();
+    this.loading = false;
+    this.bitcoinKeys = null;
+    this.privateKey = null;
+    this.registrationError = null;
   }
 }

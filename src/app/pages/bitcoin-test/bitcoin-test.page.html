@@ -18,8 +18,11 @@
 
   <div id="container" *ngIf="!loading">
     <!-- Test 1 and 2 - Registration form -->
-    <div *ngIf="testPage == 1 || testPage == 2">
+    <div *ngIf="(testPage == 1 || testPage == 2) && !privateKey">
       <app-register (userRegisterEvent)="registerUser($event)" [error]="registrationError"></app-register>
+    </div>
+    <div *ngIf="privateKey">
+      <app-backup-key (userBackedUpKeyEvent)="navigateTo('/completed')" [privateKey]="privateKey"></app-backup-key>
     </div>
   </div>
 </ion-content>

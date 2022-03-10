@@ -11,8 +11,9 @@ export class CompletedPage implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    console.log("Completed page loaded! Sending user to main page in 5 seconds...");
     setTimeout(() => {
-      this.router.navigate(['/main']);
+      this.router.navigateByUrl('/main');
     }, 5000);
   }
 }
