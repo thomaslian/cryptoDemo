@@ -10,6 +10,7 @@ import { BitcoinTestPage } from './bitcoin-test.page';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
 import { BackupKeyComponent } from 'src/app/components/backup-key/backup-key.component';
+import { GenerateKeyComponent } from 'src/app/components/generate-key/generate-key.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { BackupKeyComponent } from 'src/app/components/backup-key/backup-key.com
     IonicModule,
     BitcoinTestPageRoutingModule
   ],
-  declarations: [BitcoinTestPage, RegisterComponent, LoadingComponent, BackupKeyComponent]
+  declarations: [BitcoinTestPage, RegisterComponent, LoadingComponent, BackupKeyComponent, GenerateKeyComponent]
 })
-export class BitcoinTestPageModule {}
+export class BitcoinTestPageModule { }

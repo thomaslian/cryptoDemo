@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Observable } from 'rxjs';
 import { BitcoinKeys } from '../models/bitcoin-keys';
+
 import * as crypto from 'crypto-js';
+
+
+type BigInt = number;
+declare const BigInt: typeof Number;
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +18,34 @@ export class BitcoinService {
     private aff: AngularFireFunctions
   ) { }
 
-  getGeneratedKeys(userPassword: string): Observable<BitcoinKeys> {
-    return this.aff.httpsCallable('generateBitcoinKeys')({ userPassword });
+  /**
+ * A public and Private key gets generated in Firebase. 
+ * As mentioned in the report, this method is supposed to create the keys locally.
+ * 
+ * @returns BitcoinKeys - A model containing the public and private key
+ */
+  getGeneratedKeys(): Observable<BitcoinKeys> {
+    return this.aff.httpsCallable('generateBitcoinKeys')({});
+  }
+
+  /**
+   * A public and Private key gets generated in Firebase. The private key gets 
+   * encrypted using the user password in Firebase before returned.
+   * 
+   * @param userPassword - The password the user used to register for their account
+   * @returns BitcoinKeys - A model containing the public and private key (Private key is encrypted)
+   */
+  getGeneratedKeysEncrypted(userPassword: string): Observable<BitcoinKeys> {
+    return this.aff.httpsCallable('generateBitcoinKeysEncrypted')({ userPassword });
+  }
+
+  encrypt(privateKey: string, password: string) {
+    const salt = crypto.lib.WordArray.random(128 / 8);
+    const key = crypto.PBKDF2(password, salt);
+    const iv = crypto.lib.WordArray.random(128 / 8);
+    const encrypted = crypto.AES.encrypt(privateKey, key, { iv: iv });
+
+    return salt.toString() + iv.toString() + encrypted.toString();
   }
 
   decrypt(privateKey: string, password: string) {

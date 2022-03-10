@@ -14,5 +14,5 @@ export class BackupKeyComponent implements OnInit {
 
   ngOnInit() { }
 
-  confirmBackup(): void { this.userBackedUpKeyEvent.emit(true); }
+  confirmBackup(): void { this.userBackedUpKeyEvent.emit(true) }
 }

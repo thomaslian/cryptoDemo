@@ -29,7 +29,7 @@ export class BitcoinTestPage implements OnInit {
   ngOnInit(): void {
     this.testPage = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     console.log(this.testPage);
-   }
+  }
 
   /**
   * Unsubscribe from all subscriptions on destroy and reset variables
@@ -48,15 +48,14 @@ export class BitcoinTestPage implements OnInit {
 
     this.auth.createUserWithEmailAndPassword(userData.email, userData.password).then(() => {
       console.log("User registered successfully!");
-      this.subscription = this.bitcoin.getGeneratedKeys(userData.password).subscribe((keys: BitcoinKeys) => {
+      this.subscription = this.bitcoin.getGeneratedKeysEncrypted(userData.password).subscribe((keys: BitcoinKeys) => {
         this.bitcoinKeys = keys;
         if (this.testPage === 1) {
           console.log('Bitcoin wallet created! - Redirecting user to completed page');
           this.navigateTo('/completed');
         } else {
           this.privateKey = this.bitcoin.decrypt(this.bitcoinKeys.privateKey, userData.password);
-          console.log(this.privateKey);
-          console.log("Private key decrypted successfully!");
+          console.log("Private key decrypted successfully! - Asking user to backup the private key");
           this.loading = false;
         }
       });
@@ -64,6 +63,15 @@ export class BitcoinTestPage implements OnInit {
       console.log(error);
       this.loading = false;
       this.registrationError = error;
+    });
+  }
+
+  generateKeys(): void {
+    this.loading = true;
+    this.bitcoin.getGeneratedKeys().subscribe((keys: BitcoinKeys) => {
+      console.log('Bitcoin wallet created! - Asking user to backup the private key');
+      this.privateKey = keys.privateKey;
+      this.loading = false;
     });
   }
 
