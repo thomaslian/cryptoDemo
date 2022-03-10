@@ -5,10 +5,6 @@ import { BitcoinKeys } from '../models/bitcoin-keys';
 
 import * as crypto from 'crypto-js';
 
-
-type BigInt = number;
-declare const BigInt: typeof Number;
-
 @Injectable({
   providedIn: 'root'
 })
