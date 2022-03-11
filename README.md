@@ -4,7 +4,7 @@ Ionic app used to demonstrate ways to store private keys.
 ## Installation
 Install the app by running (remember to set files at the end of this document):
 ```
-git clone *GITHUB URL*
+git clone https://github.com/thomaslian/cryptoDemo.git
 cd cryptoDemo
 npm install -g @ionic/cli native-run cordova-res
 npm i

@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'completed',
     loadChildren: () => import('./pages/completed/completed.module').then( m => m.CompletedPageModule)
+  },
+  {
+    path: 'mnemonic-test/:id',
+    loadChildren: () => import('./pages/mnemonic-test/mnemonic-test.module').then( m => m.MnemonicTestPageModule)
   }
 ];
 

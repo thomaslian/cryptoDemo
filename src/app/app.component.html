@@ -16,7 +16,7 @@
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-list-header>Bitcoin</ion-list-header>
+          <ion-list-header>WIF</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let bTest of bitcoinTests; let i = index">
             <ion-item routerDirection="root" [routerLink]="[bTest.url]" lines="none" detail="false"
               routerLinkActive="selected">
@@ -24,7 +24,7 @@
               <ion-label>{{ bTest.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-list-header>Ethereum</ion-list-header>
+          <ion-list-header>Mnemonic</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of ethereumTests; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">

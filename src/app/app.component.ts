@@ -16,10 +16,10 @@ export class AppComponent {
     { title: 'Test 4', url: '/bitcoin-test/4', icon: 'home' },
   ];
   public ethereumTests = [
-    { title: 'Test 1', url: '/ethereum/Test-1', icon: 'home' },
-    { title: 'Test 2', url: '/ethereum/Test-2', icon: 'home' },
-    { title: 'Test 3', url: '/ethereum/Test-3', icon: 'home' },
-    { title: 'Test 4', url: '/ethereum/Test-4', icon: 'home' },
+    { title: 'Test 1', url: '/mnemonic-test/1', icon: 'home' },
+    { title: 'Test 2', url: '/mnemonic-test/2', icon: 'home' },
+    { title: 'Test 3', url: '/mnemonic-test/3', icon: 'home' },
+    { title: 'Test 4', url: '/mnemonic-test/4', icon: 'home' },
   ];
   constructor() { }
 }

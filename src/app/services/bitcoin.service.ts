@@ -15,6 +15,14 @@ export class BitcoinService {
   ) { }
 
   /**
+   * Generates a mnemonic phrase using the BIP39 library.
+   * @returns Observable<string> - A string containing a mnemonic phrase
+   */
+  generateMnemonic(): Observable<string> {
+    return this.aff.httpsCallable('generateMnemonic')({});
+  }
+
+  /**
    * A public and Private key gets generated in Firebase. 
    * As mentioned in the report, this method is supposed to create the keys locally.
    * 
@@ -46,8 +54,6 @@ export class BitcoinService {
   getGeneratedEncryptedKeysAndStore(userPassword: string): Observable<BitcoinKeys> {
     return this.aff.httpsCallable('generateAndStoreBitcoinEncryptedKeys')({ userPassword });
   }
-
-
 
   encrypt(privateKey: string, password: string): string {
     const salt = crypto.lib.WordArray.random(128 / 8);
