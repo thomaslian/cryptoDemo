@@ -9,19 +9,19 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: () => import('./pages/main/main.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./pages/main/main.module').then(m => m.FolderPageModule)
   },
   {
-    path: 'bitcoin-test/:id',
-    loadChildren: () => import('./pages/bitcoin-test/bitcoin-test.module').then( m => m.BitcoinTestPageModule)
-  },
-  {
-    path: 'completed',
-    loadChildren: () => import('./pages/completed/completed.module').then( m => m.CompletedPageModule)
+    path: 'wif-test/:id',
+    loadChildren: () => import('./pages/bitcoin-test/bitcoin-test.module').then(m => m.BitcoinTestPageModule)
   },
   {
     path: 'mnemonic-test/:id',
-    loadChildren: () => import('./pages/mnemonic-test/mnemonic-test.module').then( m => m.MnemonicTestPageModule)
+    loadChildren: () => import('./pages/mnemonic-test/mnemonic-test.module').then(m => m.MnemonicTestPageModule)
+  },
+  {
+    path: 'completed',
+    loadChildren: () => import('./pages/completed/completed.module').then(m => m.CompletedPageModule)
   }
 ];
 
@@ -31,4 +31,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

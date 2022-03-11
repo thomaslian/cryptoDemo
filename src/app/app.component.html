@@ -17,15 +17,16 @@
 
         <ion-list id="labels-list">
           <ion-list-header>WIF</ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let bTest of bitcoinTests; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[bTest.url]" lines="none" detail="false"
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of wifTests; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="bTest.icon + '-outline'" [md]="bTest.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ bTest.title }}</ion-label>
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+
           <ion-list-header>Mnemonic</ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of ethereumTests; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of mnemonicTests; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
