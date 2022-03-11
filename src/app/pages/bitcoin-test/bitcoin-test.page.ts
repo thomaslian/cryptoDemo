@@ -13,6 +13,7 @@ import { BitcoinService } from 'src/app/services/bitcoin.service';
 export class BitcoinTestPage implements OnInit {
 
   bitcoinKeys: BitcoinKeys;
+  userPassword: string;
   privateKey: string;
   testPage: number;
   loading: boolean = false;
@@ -48,7 +49,7 @@ export class BitcoinTestPage implements OnInit {
 
     this.auth.createUserWithEmailAndPassword(userData.email, userData.password).then(() => {
       console.log("User registered successfully!");
-      this.subscription = this.bitcoin.getGeneratedKeysEncrypted(userData.password).subscribe((keys: BitcoinKeys) => {
+      this.subscription = this.bitcoin.getGeneratedEncryptedKeysAndStore(userData.password).subscribe((keys: BitcoinKeys) => {
         this.bitcoinKeys = keys;
         if (this.testPage === 1) {
           console.log('Bitcoin wallet created! - Redirecting user to completed page');
@@ -71,6 +72,15 @@ export class BitcoinTestPage implements OnInit {
     this.bitcoin.getGeneratedKeys().subscribe((keys: BitcoinKeys) => {
       console.log('Bitcoin wallet created! - Asking user to backup the private key');
       this.privateKey = keys.privateKey;
+      this.loading = false;
+    });
+  }
+
+  generateAndEncryptWallet(): void {
+    this.loading = true;
+    this.bitcoin.getGeneratedEncryptedKeys(this.userPassword).subscribe((keys: BitcoinKeys) => {
+      this.privateKey = this.bitcoin.decrypt(keys.privateKey, this.userPassword);
+      console.log('Bitcoin wallet created! - Asking user to backup the private key');
       this.loading = false;
     });
   }

@@ -27,5 +27,13 @@
     <div *ngIf="testPage === 3 && !privateKey">
       <app-generate-key (userGeneratesKeyEvent)="generateKeys()"></app-generate-key>
     </div>
+    <div *ngIf="testPage === 4 && !privateKey">
+      <p>Enter a password to encrypt your private key</p>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input autofocus="true" type="password" required="true" [(ngModel)]="userPassword"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="generateAndEncryptWallet()">Generate and encrypt</ion-button>
+    </div>
   </div>
 </ion-content>
