@@ -21,20 +21,20 @@
 
   <div id="container" *ngIf="!loading">
 
-    <div *ngIf="(testPage === 1) && !privateKey">
+    <div *ngIf="(testPage === 1.1) && !privateKey">
       <app-register (userRegisterEvent)="registerUser($event)" [error]="registrationError"></app-register>
     </div>
-    <div *ngIf="testPage === 2 && !privateKey">
+    <div *ngIf="testPage === 1.2 && !privateKey">
       <app-generate-key (userGeneratesKeyEvent)="generateKeys()"></app-generate-key>
     </div>
     <div *ngIf="privateKey">
-      <app-backup-key (userBackedUpKeyEvent)="navigateTo('/completed')" [privateKey]="privateKey"></app-backup-key>
+      <app-backup-key (userBackedUpKeyEvent)="navigateTo('/completed')" [privateKey]="privateKey" [testPage]="testPage"></app-backup-key>
     </div>
-    <div *ngIf="testPage === 3 && !userLoggedIn">
+    <div *ngIf="testPage === 2.1 && !userLoggedIn">
       <app-login (userLoggedInEvent)="loginUser($event)" [error]="registrationError"></app-login>
     </div>
-    <div *ngIf="testPage === 4 || (testPage === 3 && userLoggedIn)">
-      <app-restore-key (userRestoresKeyEvent)="restoreKey($event)"></app-restore-key>
+    <div *ngIf="testPage === 2.2 || (testPage === 2.1 && userLoggedIn)">
+      <app-restore-key (userRestoresKeyEvent)="restoreKey($event)" [restoreKeyMessage]="restoreKeyMessage"></app-restore-key>
     </div>
   </div>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-restore-key',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class RestoreKeyComponent implements OnInit {
 
+  @Input() restoreKeyMessage: string;
   @Output() userRestoresKeyEvent = new EventEmitter<string>();
 
   privateKey: string;

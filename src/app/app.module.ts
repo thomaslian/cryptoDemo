@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
+
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireFunctionsModule, REGION, USE_EMULATOR } from '@angular/fire/compat/functions';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+
 
 
 @NgModule({

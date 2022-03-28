@@ -1,7 +1,8 @@
 <div>
-  <ion-item>
+  <ion-item lines="full">
     <ion-label position="floating">Enter your private key</ion-label>
     <ion-textarea autofocus="true" [(ngModel)]="privateKey"></ion-textarea>
   </ion-item>
   <ion-button expand="block" (click)="restoreKey()">Restore private key</ion-button>
+  <p *ngIf="restoreKeyMessage">{{restoreKeyMessage}}</p>
 </div>

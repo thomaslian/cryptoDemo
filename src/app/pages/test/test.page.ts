@@ -20,6 +20,7 @@ export class TestPage implements OnInit {
   wifTest: boolean = false;
   loading: boolean = false;
   registrationError: string;
+  restoreKeyMessage: string;
   subscription: Subscription;
 
   constructor(
@@ -117,10 +118,13 @@ export class TestPage implements OnInit {
     console.log("Restore key: " + privateKey);
     if (this.wifTest && this.keys.getStoredWifKey() === privateKey) {
       console.log("Keys match!");
+      this.restoreKeyMessage = "Keys successfully restored!";
     } else if (!this.wifTest && this.keys.getStoredMnemonicKey() === privateKey) {
       console.log("Keys match!");
+      this.restoreKeyMessage = "Keys restored successfully!";
     } else {
       console.log("Keys don't match!");
+      this.restoreKeyMessage = "This is not the correct private key!";
     }
   }
 
