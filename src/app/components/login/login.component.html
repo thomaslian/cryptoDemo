@@ -1,0 +1,12 @@
+<div>
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input inputmode="email" type="email" required="true" [(ngModel)]="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" required="true" [(ngModel)]="password"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="login()">Login</ion-button>
+  <p *ngIf=(error)>Error: {{error}}</p>
+</div>

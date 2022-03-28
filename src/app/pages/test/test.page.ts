@@ -14,6 +14,7 @@ export class TestPage implements OnInit {
 
   wifKeys: WIFKeys;
   userPassword: string;
+  userLoggedIn: boolean = false;
   privateKey: string;
   testPage: number;
   wifTest: boolean = false;
@@ -56,17 +57,34 @@ export class TestPage implements OnInit {
         this.subscription = this.keys.getEncryptedWIFAndStore(userData.password).subscribe((keys: WIFKeys) => {
           this.wifKeys = keys;
           this.privateKey = this.keys.decrypt(this.wifKeys.privateKey, userData.password);
+          this.keys.setWifKey(this.privateKey);
           this.loading = false;
           console.log(this.privateKey);
         });
       } else {
         this.subscription = this.keys.generateMnemonic().subscribe((mnemonic: string) => {
           this.privateKey = mnemonic;
+          this.keys.setMnemonicKey(this.privateKey);
           this.loading = false;
           console.log(this.privateKey);
         });
       }
       console.log("Asking user to backup the private key");
+    }).catch(error => {
+      console.log(error);
+      this.loading = false;
+      this.registrationError = error;
+    });
+  }
+
+  loginUser(userData: { email: string, password: string }): void {
+    this.loading = true;
+    this.registrationError = "";
+
+    this.auth.signInWithEmailAndPassword(userData.email, userData.password).then(() => {
+      console.log("User logged in successfully!");
+      this.userLoggedIn = true;
+      this.loading = false;
     }).catch(error => {
       console.log(error);
       this.loading = false;
@@ -80,6 +98,7 @@ export class TestPage implements OnInit {
       this.keys.generateWIF().subscribe((keys: WIFKeys) => {
         console.log('WIF key generated! - Asking user to backup the private key');
         this.privateKey = keys.privateKey;
+        this.keys.setWifKey(this.privateKey);
         this.loading = false;
         console.log(this.privateKey);
       });
@@ -87,9 +106,21 @@ export class TestPage implements OnInit {
       this.keys.generateMnemonic().subscribe((mnemonic: string) => {
         console.log('Mnemonic key generated! - Asking user to backup the private key');
         this.privateKey = mnemonic;
+        this.keys.setMnemonicKey(this.privateKey);
         this.loading = false;
         console.log(this.privateKey);
       });
+    }
+  }
+
+  restoreKey(privateKey: string) {
+    console.log("Restore key: " + privateKey);
+    if (this.wifTest && this.keys.getStoredWifKey() === privateKey) {
+      console.log("Keys match!");
+    } else if (!this.wifTest && this.keys.getStoredMnemonicKey() === privateKey) {
+      console.log("Keys match!");
+    } else {
+      console.log("Keys don't match!");
     }
   }
 
@@ -106,5 +137,6 @@ export class TestPage implements OnInit {
     this.wifKeys = null;
     this.privateKey = null;
     this.registrationError = null;
+    this.userLoggedIn = false;
   }
 }

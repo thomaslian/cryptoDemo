@@ -30,5 +30,11 @@
     <div *ngIf="privateKey">
       <app-backup-key (userBackedUpKeyEvent)="navigateTo('/completed')" [privateKey]="privateKey"></app-backup-key>
     </div>
+    <div *ngIf="testPage === 3 && !userLoggedIn">
+      <app-login (userLoggedInEvent)="loginUser($event)" [error]="registrationError"></app-login>
+    </div>
+    <div *ngIf="testPage === 4 || (testPage === 3 && userLoggedIn)">
+      <app-restore-key (userRestoresKeyEvent)="restoreKey($event)"></app-restore-key>
+    </div>
   </div>
 </ion-content>

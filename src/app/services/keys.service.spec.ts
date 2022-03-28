@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { KeysService } from './keys.service';
 
-describe('BitcoinService', () => {
+describe('KeysService', () => {
   let service: KeysService;
 
   beforeEach(() => {

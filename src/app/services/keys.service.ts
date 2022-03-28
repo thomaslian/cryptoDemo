@@ -10,9 +10,28 @@ import * as crypto from 'crypto-js';
 })
 export class KeysService {
 
+  wifKey: string;
+  mnemonicKey: string;
+
   constructor(
     private aff: AngularFireFunctions
   ) { }
+
+  setWifKey(wifKey: string): void {
+    this.wifKey = wifKey;
+  }
+
+  getStoredWifKey(): string {
+    return this.wifKey;
+  }
+
+  setMnemonicKey(mnemonicKey: string): void {
+    this.mnemonicKey = mnemonicKey;
+  }
+
+  getStoredMnemonicKey(): string {
+    return this.mnemonicKey;
+  }
 
   /**
    * Generates a mnemonic phrase using the BIP39 library.
