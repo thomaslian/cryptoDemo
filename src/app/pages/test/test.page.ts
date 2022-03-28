@@ -2,20 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BitcoinKeys } from 'src/app/models/bitcoin-keys';
-import { BitcoinService } from 'src/app/services/bitcoin.service';
+import { WIFKeys } from 'src/app/models/wif-keys';
+import { KeysService } from 'src/app/services/keys.service';
 
 @Component({
-  selector: 'app-bitcoin-test',
-  templateUrl: './bitcoin-test.page.html',
-  styleUrls: ['./bitcoin-test.page.scss'],
+  selector: 'app-test',
+  templateUrl: './test.page.html',
+  styleUrls: ['./test.page.scss'],
 })
-export class BitcoinTestPage implements OnInit {
+export class TestPage implements OnInit {
 
-  bitcoinKeys: BitcoinKeys;
+  wifKeys: WIFKeys;
   userPassword: string;
   privateKey: string;
   testPage: number;
+  wifTest: boolean = false;
   loading: boolean = false;
   registrationError: string;
   subscription: Subscription;
@@ -23,12 +24,14 @@ export class BitcoinTestPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private bitcoin: BitcoinService,
+    private keys: KeysService,
     private auth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
+    this.wifTest = this.router.url.includes("wif");
     this.testPage = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    console.log(this.wifTest);
     console.log(this.testPage);
   }
 
@@ -49,17 +52,21 @@ export class BitcoinTestPage implements OnInit {
 
     this.auth.createUserWithEmailAndPassword(userData.email, userData.password).then(() => {
       console.log("User registered successfully!");
-      this.subscription = this.bitcoin.getGeneratedEncryptedKeysAndStore(userData.password).subscribe((keys: BitcoinKeys) => {
-        this.bitcoinKeys = keys;
-        if (this.testPage === 1) {
-          console.log('Bitcoin wallet created! - Redirecting user to completed page');
-          this.navigateTo('/completed');
-        } else {
-          this.privateKey = this.bitcoin.decrypt(this.bitcoinKeys.privateKey, userData.password);
-          console.log("Private key decrypted successfully! - Asking user to backup the private key");
+      if (this.wifTest) {
+        this.subscription = this.keys.getEncryptedWIFAndStore(userData.password).subscribe((keys: WIFKeys) => {
+          this.wifKeys = keys;
+          this.privateKey = this.keys.decrypt(this.wifKeys.privateKey, userData.password);
           this.loading = false;
-        }
-      });
+          console.log(this.privateKey);
+        });
+      } else {
+        this.subscription = this.keys.generateMnemonic().subscribe((mnemonic: string) => {
+          this.privateKey = mnemonic;
+          this.loading = false;
+          console.log(this.privateKey);
+        });
+      }
+      console.log("Asking user to backup the private key");
     }).catch(error => {
       console.log(error);
       this.loading = false;
@@ -69,20 +76,21 @@ export class BitcoinTestPage implements OnInit {
 
   generateKeys(): void {
     this.loading = true;
-    this.bitcoin.getGeneratedKeys().subscribe((keys: BitcoinKeys) => {
-      console.log('Bitcoin wallet created! - Asking user to backup the private key');
-      this.privateKey = keys.privateKey;
-      this.loading = false;
-    });
-  }
-
-  generateAndEncryptWallet(): void {
-    this.loading = true;
-    this.bitcoin.getGeneratedEncryptedKeys(this.userPassword).subscribe((keys: BitcoinKeys) => {
-      this.privateKey = this.bitcoin.decrypt(keys.privateKey, this.userPassword);
-      console.log('Bitcoin wallet created! - Asking user to backup the private key');
-      this.loading = false;
-    });
+    if (this.wifTest) {
+      this.keys.generateWIF().subscribe((keys: WIFKeys) => {
+        console.log('WIF key generated! - Asking user to backup the private key');
+        this.privateKey = keys.privateKey;
+        this.loading = false;
+        console.log(this.privateKey);
+      });
+    } else {
+      this.keys.generateMnemonic().subscribe((mnemonic: string) => {
+        console.log('Mnemonic key generated! - Asking user to backup the private key');
+        this.privateKey = mnemonic;
+        this.loading = false;
+        console.log(this.privateKey);
+      });
+    }
   }
 
   // Navigate to a page - This will reset variables and unsubscribe from all subscriptions
@@ -95,7 +103,7 @@ export class BitcoinTestPage implements OnInit {
   private resetPage(): void {
     if (this.subscription) this.subscription.unsubscribe();
     this.loading = false;
-    this.bitcoinKeys = null;
+    this.wifKeys = null;
     this.privateKey = null;
     this.registrationError = null;
   }

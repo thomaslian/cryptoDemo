@@ -10,16 +10,16 @@ export class AppComponent {
     { title: 'Main', url: '/main', icon: 'home' }
   ];
   public wifTests = [
-    { title: 'Test 1', url: '/wif-test/1', icon: 'home' },
-    { title: 'Test 2', url: '/wif-test/2', icon: 'home' },
-    { title: 'Test 3', url: '/wif-test/3', icon: 'home' },
-    { title: 'Test 4', url: '/wif-test/4', icon: 'home' },
+    { title: 'Test 1.1', url: '/test/wif/1', icon: 'key' },
+    { title: 'Test 1.2', url: '/test/wif/2', icon: 'key' },
+    { title: 'Test 2.1', url: '/test/wif/3', icon: 'key' },
+    { title: 'Test 2.2', url: '/test/wif/4', icon: 'key' },
   ];
   public mnemonicTests = [
-    { title: 'Test 1', url: '/mnemonic-test/1', icon: 'home' },
-    { title: 'Test 2', url: '/mnemonic-test/2', icon: 'home' },
-    { title: 'Test 3', url: '/mnemonic-test/3', icon: 'home' },
-    { title: 'Test 4', url: '/mnemonic-test/4', icon: 'home' },
+    { title: 'Test 1.1', url: '/test/mnemonic/1', icon: 'key' },
+    { title: 'Test 1.2', url: '/test/mnemonic/2', icon: 'key' },
+    { title: 'Test 2.1', url: '/test/mnemonic/3', icon: 'key' },
+    { title: 'Test 2.2', url: '/test/mnemonic/4', icon: 'key' },
   ];
   constructor() { }
 }

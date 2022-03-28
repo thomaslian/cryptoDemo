@@ -16,7 +16,7 @@
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-list-header>WIF</ion-list-header>
+          <ion-list-header>WIF Tests</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of wifTests; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">
@@ -25,7 +25,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-list-header>Mnemonic</ion-list-header>
+          <ion-list-header>Mnemonic Tests</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of mnemonicTests; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">
@@ -33,6 +33,7 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+
         </ion-list>
       </ion-content>
     </ion-menu>

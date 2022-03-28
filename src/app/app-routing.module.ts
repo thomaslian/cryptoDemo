@@ -12,13 +12,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/main/main.module').then(m => m.FolderPageModule)
   },
   {
-    path: 'wif-test/:id',
-    loadChildren: () => import('./pages/bitcoin-test/bitcoin-test.module').then(m => m.BitcoinTestPageModule)
+    path: 'test/wif/:id',
+    loadChildren: () => import('./pages/test/test.module').then(m => m.TestPageModule)
   },
   {
-    path: 'mnemonic-test/:id',
-    loadChildren: () => import('./pages/mnemonic-test/mnemonic-test.module').then(m => m.MnemonicTestPageModule)
-  },
+    path: 'test/mnemonic/:id',
+    loadChildren: () => import('./pages/test/test.module').then(m => m.TestPageModule)  },
   {
     path: 'completed',
     loadChildren: () => import('./pages/completed/completed.module').then(m => m.CompletedPageModule)

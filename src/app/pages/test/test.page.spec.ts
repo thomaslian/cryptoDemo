@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { BitcoinTestPage } from './bitcoin-test.page';
+import { TestPage } from './test.page';
 
 describe('BitcoinTestPage', () => {
-  let component: BitcoinTestPage;
-  let fixture: ComponentFixture<BitcoinTestPage>;
+  let component: TestPage;
+  let fixture: ComponentFixture<TestPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BitcoinTestPage ],
+      declarations: [ TestPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BitcoinTestPage);
+    fixture = TestBed.createComponent(TestPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

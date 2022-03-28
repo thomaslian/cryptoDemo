@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Observable } from 'rxjs';
-import { BitcoinKeys } from '../models/bitcoin-keys';
+import { WIFKeys } from '../models/wif-keys';
 
 import * as crypto from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BitcoinService {
+export class KeysService {
 
   constructor(
     private aff: AngularFireFunctions
@@ -26,9 +26,9 @@ export class BitcoinService {
    * A public and Private key gets generated in Firebase. 
    * As mentioned in the report, this method is supposed to create the keys locally.
    * 
-   * @returns BitcoinKeys - A model containing the public and private key
+   * @returns WIFKeys - A model containing the public and private key
    */
-  getGeneratedKeys(): Observable<BitcoinKeys> {
+  generateWIF(): Observable<WIFKeys> {
     return this.aff.httpsCallable('generateBitcoinKeys')({});
   }
 
@@ -37,11 +37,11 @@ export class BitcoinService {
    * encrypted using the user password in Firebase before returned. 
    * 
    * @param userPassword - The password the user used to register for their account
-   * @returns BitcoinKeys - A model containing the public and private key (Private key is encrypted)
-   */
-  getGeneratedEncryptedKeys(userPassword: string): Observable<BitcoinKeys> {
+   * @returns WIFKeys - A model containing the public and private key (Private key is encrypted)
+   *
+  getGeneratedEncryptedWIF(userPassword: string): Observable<WIFKeys> {
     return this.aff.httpsCallable('generateBitcoinEncryptedKeys')({ userPassword });
-  }
+  }*/
 
   /**
    * A public and Private key gets generated in Firebase. The private key gets 
@@ -49,9 +49,9 @@ export class BitcoinService {
    * gets saved with the user data (UID) in Firestore.
    * 
    * @param userPassword - The password the user used to register for their account
-   * @returns BitcoinKeys - A model containing the public and private key (Private key is encrypted)
+   * @returns WIFKeys - A model containing the public and private key (Private key is encrypted)
    */
-  getGeneratedEncryptedKeysAndStore(userPassword: string): Observable<BitcoinKeys> {
+  getEncryptedWIFAndStore(userPassword: string): Observable<WIFKeys> {
     return this.aff.httpsCallable('generateAndStoreBitcoinEncryptedKeys')({ userPassword });
   }
 
