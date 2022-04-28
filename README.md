@@ -10,7 +10,7 @@ npm install -g @ionic/cli native-run cordova-res
 npm i
 ```
 ## Live Demo
-*Insert live demo*
+[ionicframework.com (Only available until 04.05.2022)](https://dashboard.ionicframework.com/app/83e294ea/preview/7952925)
 
 ## Try app
 ### In browser
