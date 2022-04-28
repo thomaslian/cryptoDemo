@@ -54,22 +54,7 @@ export class TestPage implements OnInit {
 
     this.auth.createUserWithEmailAndPassword(userData.email, userData.password).then(() => {
       console.log("User registered successfully!");
-      if (this.wifTest) {
-        this.subscription = this.keys.getEncryptedWIFAndStore(userData.password).subscribe((keys: WIFKeys) => {
-          this.wifKeys = keys;
-          this.privateKey = this.keys.decrypt(this.wifKeys.privateKey, userData.password);
-          this.keys.setWifKey(this.privateKey);
-          this.loading = false;
-          console.log(this.privateKey);
-        });
-      } else {
-        this.subscription = this.keys.generateMnemonic().subscribe((mnemonic: string) => {
-          this.privateKey = mnemonic;
-          this.keys.setMnemonicKey(this.privateKey);
-          this.loading = false;
-          console.log(this.privateKey);
-        });
-      }
+      this.generateKeys();
       console.log("Asking user to backup the private key");
     }).catch(error => {
       console.log(error);
